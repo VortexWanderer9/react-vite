@@ -1,8 +1,11 @@
     import './App.css'
-    import Card from './assets/Card'
+    import MovieCard from './assets/movieCard'
+    import { useDebounce } from 'react-use'
     import Search from './assets/Search'
-    import { use, useEffect, useState } from 'react';
+    import { useEffect, useState } from 'react';
+    import Spinner from './assets/Spinner';
     const API_BASE_URL = 'https://api.themoviedb.org/3';
+ 
     const API_KEY = import.meta.env.VITE_API_KEY;
     const API_OPTIONS = {
       method: 'GET',
@@ -18,11 +21,19 @@
       const [loading, setLogin] = useState(false);
       const [errorMessage, setError] = useState('');
       const [movies, setMovies] = useState([])
-      const fetchMovie = async() =>{
+     const [debounceSearch, setDebounceSearch] = useState('');
+     useDebounce(() => setDebounceSearch(searchTerm), 500, [searchTerm]);
+       useEffect(() =>{
+        fetchMovie(debounceSearch)
+      }, [debounceSearch])
+
+      const fetchMovie = async(query = '') =>{
     setLogin(true);
     setError('');
         try {
-          const endPoint = `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`
+          const endPoint = query ?
+           `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}`
+          : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`
           const response = await fetch(endPoint, API_OPTIONS)
           if(!response.ok){
             throw new Error('Network response was not ok')
@@ -44,9 +55,6 @@
 
 
       }
-      useEffect(() =>{
-        fetchMovie()
-      }, [])
     return (
       <>
       <section className='hero'>
@@ -59,11 +67,24 @@
         “Every great <span className='text-blue-900'>story</span> begins with a search.”
       </h1>
       <Search searchTerm = {searchTerm} setSearchTerm = {setSearchTerm} />
+      <h2 className='heading font-bold text-emerald-500 text-4xl'>All Movies</h2>
     </header>
     </section>
     <section className='all-movies'>
-      
-      <Card />
+      {loading ? (
+        <Spinner/>
+      ) : errorMessage ? (
+         <p className='text-red-500'>{errorMessage}</p>
+      ) : (
+<div className="Card">
+{movies.map((movie) => (
+  <MovieCard key={movie.id} movie = {movie} />
+
+  
+))}
+</div>
+      )}
+
     </section>
 
       </>
