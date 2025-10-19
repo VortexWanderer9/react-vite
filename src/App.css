@@ -29,16 +29,66 @@ body {
 
 .search{
   margin-top: 20px;
-  padding: 20px 20px;
   background-color: var(--background-color);
   width: 70%;
   border-radius: 10px;
   display: flex;
   gap: 30px;
+  padding: 0 20px;
   
 }
 .search input{
   width: 100%;
   height: 100%;
+  padding: 20px 0px;
 
+}
+.card-grid{
+  display: grid;
+  max-width: 1300px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.card{
+ background-color: rgb(2, 4, 34);
+ padding: 20px;
+ border-radius: 10px;
+ 
+}
+.card img{
+  width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.extra-information{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.extra-information h2{
+  font-weight: 600;
+  margin-top: 10px;
+  display: -webkit-box;
+  overflow: hidden;
+}
+.extra{
+  display: flex;
+  gap: 20px;
+}
+.extra p{
+  font-size: .9rem;
+  color: gray;
+ 
+}
+.overview{
+ font-size: .9rem;
+ color: #00eeff;
+ font-weight: 600;
+  
+}
+
+.extra p::before{
+  content: "•";
+  margin-right: 10px;
 }
