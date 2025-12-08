@@ -1,4 +1,5 @@
     import './App.css'
+    import './index.css'
     import MovieCard from './assets/movieCard'
     import { useDebounce } from 'react-use'
     import Search from './assets/Search'
@@ -81,10 +82,10 @@
       <h2 className='heading font-bold text-emerald-500 text-4xl'>All Movies</h2>
     </header>
 {trending.length > 0 && (
-  <section className="trending p-4">
-    <h2 className="text-2xl font-bold mb-4">Trending Movies</h2>
+  <section className="trending p-10">
+    <h2 className="text-2xl font-bold ml-3">Trending Movies</h2>
 
-    <ul className="flex gap-10 overflow-x-auto scroll-smooth hide-scrollbar py-4">
+    <ul className="flex gap-10 overflow-x-auto scroll-smooth hide-scrollbar p-10 ">
       {trending.map((item, index) => (
         <li 
           key={item.$id}
