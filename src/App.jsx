@@ -1,5 +1,4 @@
     import './App.css'
-    import './index.css'
     import MovieCard from './assets/movieCard'
     import { useDebounce } from 'react-use'
     import Search from './assets/Search'
@@ -38,7 +37,7 @@
           : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`
           const response = await fetch(endPoint, API_OPTIONS)
           if(!response.ok){
-            throw new Error('Network response was not ok')
+            // throw new Error('Network response was not ok')
             setMovies([]);
             return;
           }
@@ -79,13 +78,12 @@
         “Every great <span className='text-blue-900'>story</span> begins with a search.”
       </h1>
       <Search searchTerm = {searchTerm} setSearchTerm = {setSearchTerm} />
-      <h2 className='heading font-bold text-emerald-500 text-4xl'>All Movies</h2>
     </header>
 {trending.length > 0 && (
   <section className="trending p-10">
-    <h2 className="text-2xl font-bold ml-3">Trending Movies</h2>
+    <h2 className="text-2xl font-bold ml-6 mb-5">Trending Movies</h2>
 
-    <ul className="flex gap-10 overflow-x-auto scroll-smooth hide-scrollbar p-10 ">
+    <ul className="flex gap-10 overflow-x-auto scroll-smooth hide-scrollbar mt-2">
       {trending.map((item, index) => (
         <li 
           key={item.$id}
@@ -110,6 +108,7 @@
 )}
     </section>
     <section className='all-movies'>
+      <h2 className='heading font-bold text-emerald-500 text-4xl text-center'>|_All Movies_|</h2>
       {loading ? (
         <Spinner/>
       ) : errorMessage ? (
